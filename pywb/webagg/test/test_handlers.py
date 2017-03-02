@@ -13,10 +13,10 @@ from pywb.webagg.aggregator import DirectoryIndexSource
 from pywb.webagg.app import ResAggApp
 from pywb.webagg.utils import MementoUtils
 
-from pywb.warc.recordloader import ArcWarcRecordLoader
+from pywb.warclib.recordloader import ArcWarcRecordLoader
+from pywb.warclib.statusandheaders import StatusAndHeadersParser
+from pywb.warclib.bufferedreaders import ChunkedDataReader
 
-from pywb.utils.statusandheaders import StatusAndHeadersParser
-from pywb.utils.bufferedreaders import ChunkedDataReader
 from io import BytesIO
 from six.moves.urllib.parse import urlencode
 

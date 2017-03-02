@@ -6,7 +6,7 @@ from pprint import pformat
 from copy import copy
 from six.moves import range
 from six import iteritems
-from pywb.utils.loaders import to_native_str
+from pywb.warclib.utils import to_native_str
 import uuid
 
 

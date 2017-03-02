@@ -1,5 +1,6 @@
-from pywb.utils.timeutils import timestamp_to_datetime, timestamp_to_sec
-from pywb.utils.timeutils import timestamp_now
+from pywb.warclib.timeutils import timestamp_to_datetime, timestamp_to_sec
+from pywb.warclib.timeutils import timestamp_now
+
 from pywb.utils.loaders import load
 
 from six.moves.urllib.parse import urlsplit

@@ -1,15 +1,14 @@
-from pywb.utils.bufferedreaders import DecompressingBufferedReader
+from pywb.warclib.bufferedreaders import DecompressingBufferedReader
 
-from pywb.warc.recordloader import ArcWarcRecordLoader
+from pywb.warclib.recordloader import ArcWarcRecordLoader
+
+from pywb.warclib.utils import BUFF_SIZE
 
 import six
 import sys
 
 
 # ============================================================================
-BUFF_SIZE = 16384
-
-
 class ArchiveIterator(six.Iterator):
     """ Iterate over records in WARC and ARC files, both gzip chunk
     compressed and uncompressed

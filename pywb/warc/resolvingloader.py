@@ -1,6 +1,7 @@
-from pywb.utils.timeutils import iso_date_to_timestamp
+from pywb.warclib.recordloader import ArchiveLoadFailed
+from pywb.warclib.timeutils import iso_date_to_timestamp
+
 from pywb.warc.blockrecordloader import BlockArcWarcRecordLoader
-from pywb.warc.recordloader import ArchiveLoadFailed
 from pywb.utils.wbexception import NotFoundException
 
 import six

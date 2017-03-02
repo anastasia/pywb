@@ -9,19 +9,17 @@ import six
 from socket import gethostname
 from io import BytesIO
 
-from pywb.utils.loaders import to_native_str
-from pywb.utils.timeutils import datetime_to_iso_date
+from pywb.warclib.utils import to_native_str, BUFF_SIZE
+from pywb.warclib.timeutils import datetime_to_iso_date
 
-from pywb.utils.statusandheaders import StatusAndHeadersParser, StatusAndHeaders
+from pywb.warclib.statusandheaders import StatusAndHeadersParser, StatusAndHeaders
 
-from pywb.warc.recordloader import ArcWarcRecord
-from pywb.warc.recordloader import ArcWarcRecordLoader
+from pywb.warclib.recordloader import ArcWarcRecord
+from pywb.warclib.recordloader import ArcWarcRecordLoader
 
 
 # ============================================================================
 class BaseWARCWriter(object):
-    BUFF_SIZE = 16384
-
     WARC_RECORDS = {'warcinfo': 'application/warc-fields',
          'response': 'application/http; msgtype=response',
          'revisit': 'application/http; msgtype=response',
@@ -44,7 +42,7 @@ class BaseWARCWriter(object):
     @classmethod
     def _iter_stream(cls, stream):
         while True:
-            buf = stream.read(cls.BUFF_SIZE)
+            buf = stream.read(BUFF_SIZE)
             if not buf:
                 return
 
@@ -282,23 +280,3 @@ class BufferWARCWriter(BaseWARCWriter):
         buff = self.out.read()
         self.out.seek(pos)
         return buff
-
-
-# ============================================================================
-class FileWARCWriter(BufferWARCWriter):
-    def __init__(self, *args, **kwargs):
-        file_or_buff = None
-        if len(args) > 0:
-            file_or_buff = args[0]
-        else:
-            file_or_buff = kwargs.get('file')
-
-        if isinstance(file_or_buff, str):
-            self.out = open(file_or_buff, 'rb')
-        elif hasattr(file_or_buff, 'read'):
-            self.out = file_or_buff
-        else:
-            raise Exception('file must be a readable or valid filename')
-
-
-

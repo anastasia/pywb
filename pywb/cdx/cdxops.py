@@ -3,8 +3,9 @@ from pywb.cdx.cdxobject import TIMESTAMP, STATUSCODE, MIMETYPE, DIGEST
 from pywb.cdx.cdxobject import OFFSET, LENGTH, FILENAME
 
 from pywb.cdx.query import CDXQuery
-from pywb.utils.timeutils import timestamp_to_sec, pad_timestamp
-from pywb.utils.timeutils import PAD_14_DOWN, PAD_14_UP
+
+from pywb.warclib.timeutils import timestamp_to_sec, pad_timestamp
+from pywb.warclib.timeutils import PAD_14_DOWN, PAD_14_UP
 
 import bisect
 

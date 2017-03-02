@@ -1,8 +1,8 @@
-from pywb.utils.timeutils import iso_date_to_timestamp
 from pywb.utils.canonicalize import canonicalize
 from pywb.utils.loaders import extract_post_query, append_post_query
 
-from pywb.warc.archiveiterator import ArchiveIterator
+from pywb.warclib.timeutils import iso_date_to_timestamp
+from pywb.warclib.archiveiterator import ArchiveIterator
 
 import hashlib
 import base64

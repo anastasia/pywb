@@ -1,7 +1,7 @@
-from pywb.utils.statusandheaders import StatusAndHeaders
-from pywb.warc.warcwriter import BufferWARCWriter
-from pywb.warc.recordloader import ArcWarcRecordLoader
-from pywb.warc.archiveiterator import ArchiveIterator
+from pywb.warclib.statusandheaders import StatusAndHeaders
+from pywb.warclib.warcwriter import BufferWARCWriter
+from pywb.warclib.recordloader import ArcWarcRecordLoader
+from pywb.warclib.archiveiterator import ArchiveIterator
 
 from io import BytesIO
 from collections import OrderedDict

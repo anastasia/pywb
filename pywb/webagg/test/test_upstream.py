@@ -8,7 +8,7 @@ from pywb.webagg.handlers import DefaultResourceHandler
 from pywb.webagg.aggregator import SimpleAggregator
 from pywb.webagg.proxyindexsource import ProxyMementoIndexSource, UpstreamAggIndexSource
 
-from pywb.warc.recordloader import ArcWarcRecordLoader
+from pywb.warclib.recordloader import ArcWarcRecordLoader
 
 from .testutils import LiveServerTests, BaseTestClass
 

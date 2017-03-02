@@ -1,6 +1,6 @@
+from pywb.warclib.bufferedreaders import DecompressingBufferedReader
+from pywb.warclib.recordloader import ArcWarcRecordLoader
 from pywb.utils.loaders import BlockLoader
-from pywb.utils.bufferedreaders import DecompressingBufferedReader
-from pywb.warc.recordloader import ArcWarcRecordLoader
 
 
 #=================================================================

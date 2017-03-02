@@ -2,12 +2,13 @@ from pywb.webagg.utils import MementoUtils, StreamIter, compress_gzip_iter
 from pywb.webagg.utils import ParamFormatter
 from pywb.webagg.indexsource import RedisIndexSource
 
-from pywb.utils.timeutils import timestamp_to_datetime, datetime_to_timestamp
-from pywb.utils.timeutils import iso_date_to_datetime, datetime_to_iso_date
-from pywb.utils.timeutils import http_date_to_datetime, datetime_to_http_date
+from pywb.warclib.timeutils import timestamp_to_datetime, datetime_to_timestamp
+from pywb.warclib.timeutils import iso_date_to_datetime, datetime_to_iso_date
+from pywb.warclib.timeutils import http_date_to_datetime, datetime_to_http_date
+
+from pywb.warclib.statusandheaders import StatusAndHeaders, StatusAndHeadersParser
 
 from pywb.utils.wbexception import LiveResourceException, WbException
-from pywb.utils.statusandheaders import StatusAndHeaders, StatusAndHeadersParser
 
 from pywb.warc.resolvingloader import ResolvingLoader
 

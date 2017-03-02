@@ -20,11 +20,13 @@ from pywb.recorder.filters import SkipDupePolicy, WriteDupePolicy, WriteRevisitD
 from pywb.webagg.utils import MementoUtils
 
 from pywb.cdx.cdxobject import CDXObject
-from pywb.utils.statusandheaders import StatusAndHeadersParser
-from pywb.utils.bufferedreaders import DecompressingBufferedReader
-from pywb.warc.recordloader import ArcWarcRecordLoader
+
+from pywb.warclib.statusandheaders import StatusAndHeadersParser
+from pywb.warclib.bufferedreaders import DecompressingBufferedReader
+from pywb.warclib.recordloader import ArcWarcRecordLoader
+from pywb.warclib.archiveiterator import ArchiveIterator
+
 from pywb.warc.cdxindexer import write_cdx_index
-from pywb.warc.archiveiterator import ArchiveIterator
 
 from six.moves.urllib.parse import quote, unquote, urlencode
 from io import BytesIO

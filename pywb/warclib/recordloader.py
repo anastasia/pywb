@@ -1,14 +1,14 @@
-import collections
+#import collections
 
-from pywb.utils.statusandheaders import StatusAndHeaders
-from pywb.utils.statusandheaders import StatusAndHeadersParser
-from pywb.utils.statusandheaders import StatusAndHeadersParserException
+from pywb.warclib.statusandheaders import StatusAndHeaders
+from pywb.warclib.statusandheaders import StatusAndHeadersParser
+from pywb.warclib.statusandheaders import StatusAndHeadersParserException
 
-from pywb.utils.limitreader import LimitReader
-from pywb.utils.loaders import to_native_str
+from pywb.warclib.limitreader import LimitReader
+from pywb.warclib.utils import to_native_str
 
-#from pywb.utils.wbexception import WbException
-from pywb.utils.timeutils import timestamp_to_iso_date
+#from pywb.warclib.wbexception import WbException
+from pywb.warclib.timeutils import timestamp_to_iso_date
 
 from six.moves import zip
 
@@ -34,8 +34,11 @@ class ArchiveLoadFailed(Exception):
         else:
             msg = str(reason)
 
-        super(ArchiveLoadFailed, self).__init__(msg)
         self.msg = msg
+        super(ArchiveLoadFailed, self).__init__(msg)
+
+    def status(self):
+        return '503 Service Unavailable'
 
 
 #=================================================================

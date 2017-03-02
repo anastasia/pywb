@@ -7,11 +7,10 @@ import traceback
 
 import portalocker
 
-from pywb.utils.timeutils import timestamp20_now
+from pywb.warclib.timeutils import timestamp20_now
+from pywb.warclib.warcwriter import BaseWARCWriter
 
 from pywb.webagg.utils import res_template
-
-from pywb.warc.warcwriter import BaseWARCWriter
 
 
 # ============================================================================

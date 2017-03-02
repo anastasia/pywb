@@ -6,10 +6,10 @@ from pywb.framework.archivalrouter import Route
 
 from pywb.rewrite.rewrite_content import RewriteContent
 from pywb.rewrite.wburl import WbUrl
-from pywb.warc.recordloader import ArcWarcRecordLoader
+from pywb.warclib.recordloader import ArcWarcRecordLoader
 from pywb.webapp.live_rewrite_handler import RewriteHandler
 from pywb.utils.canonicalize import canonicalize
-from pywb.utils.timeutils import http_date_to_timestamp
+from pywb.warclib.timeutils import http_date_to_timestamp
 from pywb.cdx.cdxobject import CDXObject
 
 from io import BytesIO

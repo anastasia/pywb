@@ -21,6 +21,8 @@ class MultiFileWARCWriter(BaseWARCWriter):
                  max_idle_secs=1800, *args, **kwargs):
         super(MultiFileWARCWriter, self).__init__(*args, **kwargs)
 
+        self.header_filter = kwargs.get('header_filter')
+
         if not filename_template:
             dir_template, filename_template = os.path.split(dir_template)
             dir_template += os.path.sep
@@ -40,24 +42,15 @@ class MultiFileWARCWriter(BaseWARCWriter):
 
         self.fh_cache = {}
 
-    def write_req_resp(self, req, resp, params):
-        url = resp.rec_headers.get_header('WARC-Target-URI')
-        dt = resp.rec_headers.get_header('WARC-Date')
+    def copy_warc_record(self, record_stream):
+        length = record_stream.tell()
+        record_stream.seek(0)
 
-        #req.rec_headers['Content-Type'] = req.content_type
-        req.rec_headers.replace_header('WARC-Target-URI', url)
-        req.rec_headers.replace_header('WARC-Date', dt)
+        warc_headers = self.parser.parse(record_stream)
 
-        resp_id = resp.rec_headers.get_header('WARC-Record-ID')
-        if resp_id:
-            req.rec_headers.add_header('WARC-Concurrent-To', resp_id)
+        record_type = warc_headers.get_header('WARC-Type', 'response')
 
-        resp = self._check_revisit(resp, params)
-        if not resp:
-            print('Skipping due to dedup')
-            return
-
-        self._do_write_req_resp(req, resp, params)
+        return self._fill_record(record_type, warc_headers, None, record_stream, '', length)
 
     def _check_revisit(self, record, params):
         if not self.dedup_index:
@@ -76,13 +69,16 @@ class MultiFileWARCWriter(BaseWARCWriter):
             return None
 
         if isinstance(result, tuple) and result[0] == 'revisit':
-            record.rec_headers.replace_header('WARC-Type', 'revisit')
-            record.rec_headers.add_header('WARC-Profile', self.REVISIT_PROFILE)
-
-            record.rec_headers.add_header('WARC-Refers-To-Target-URI', result[1])
-            record.rec_headers.add_header('WARC-Refers-To-Date', result[2])
+            self.create_revisit_record(record, result[1], result[2])
 
         return record
+
+    def _set_header_buff(self, record):
+        exclude_list = None
+        if self.header_filter:
+            exclude_list = self.header_filter(record)
+        buff = record.status_headers.to_bytes(exclude_list)
+        record.status_headers.headers_buff = buff
 
     def get_new_filename(self, dir_, params):
         timestamp = timestamp20_now()
@@ -152,6 +148,11 @@ class MultiFileWARCWriter(BaseWARCWriter):
         self._do_write_req_resp(None, record, params)
 
     def _do_write_req_resp(self, req, resp, params):
+        resp = self._check_revisit(resp, params)
+        if not resp:
+            print('Skipping due to dedup')
+            return
+
         def write_callback(out, filename):
             #url = resp.rec_headers.get_header('WARC-Target-URI')
             #print('Writing req/resp {0} to {1} '.format(url, filename))

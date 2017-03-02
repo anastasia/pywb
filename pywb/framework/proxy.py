@@ -4,6 +4,7 @@ from pywb.framework.wbrequestresponse import WbResponse, WbRequest
 from pywb.framework.archivalrouter import ArchivalRouter
 
 from six.moves.urllib.parse import urlsplit
+from six import iteritems
 import base64
 
 import socket
@@ -250,7 +251,8 @@ class ProxyRouter(object):
 
         # add extra headers for replay responses
         if wbrequest.wb_url and wbrequest.wb_url.is_replay():
-            response.status_headers.replace_headers(self.extra_headers)
+            for name, value in iteritems(self.extra_headers):
+                response.status_headers.replace_header(name, value)
 
         # check for content-length
         res = response.status_headers.get_header('content-length')

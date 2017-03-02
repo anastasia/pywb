@@ -78,7 +78,7 @@ class RecorderApp(object):
                                                      payload=req_pay,
                                                      warc_headers_dict=req_head)
 
-                self.writer.write_req_resp(req, resp, params)
+                self.writer.write_request_response_pair(req, resp, params)
 
             else:
                 self.writer.write_record(resp, params)

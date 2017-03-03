@@ -108,7 +108,7 @@ class ResolvingLoader(object):
         # optimization: if same file already failed this request,
         # don't try again
         if failed_files is not None and filename in failed_files:
-            raise ArchiveLoadFailed('Skipping Already Failed', filename)
+            raise ArchiveLoadFailed('Skipping Already Failed: ' + filename)
 
         any_found = False
         last_exc = None
@@ -145,7 +145,7 @@ class ResolvingLoader(object):
             msg = 'Archive File Not Found'
 
         #raise ArchiveLoadFailed(msg, filename), None, last_traceback
-        six.reraise(ArchiveLoadFailed, ArchiveLoadFailed(msg, filename), last_traceback)
+        six.reraise(ArchiveLoadFailed, ArchiveLoadFailed(filename + ': ' + msg), last_traceback)
 
     def _load_different_url_payload(self, cdx, headers_record,
                                     failed_files, cdx_loader):

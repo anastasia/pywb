@@ -42,18 +42,8 @@ class MultiFileWARCWriter(BaseWARCWriter):
 
         self.fh_cache = {}
 
-    def copy_warc_record(self, record_stream):
-        length = record_stream.tell()
-        record_stream.seek(0)
-
-        warc_headers = self.parser.parse(record_stream)
-
-        record_type = warc_headers.get_header('WARC-Type', 'response')
-
-        return self._fill_record(record_type, warc_headers, None, record_stream, '', length)
-
     def _check_revisit(self, record, params):
-        if not self.dedup_index:
+        if not self.dedup_index or record.rec_type != 'response':
             return record
 
         try:
@@ -69,7 +59,8 @@ class MultiFileWARCWriter(BaseWARCWriter):
             return None
 
         if isinstance(result, tuple) and result[0] == 'revisit':
-            self.create_revisit_record(record, result[1], result[2])
+            record = self.create_revisit_record(url, digest, result[1], result[2],
+                                                status_headers=record.status_headers)
 
         return record
 
@@ -179,6 +170,8 @@ class MultiFileWARCWriter(BaseWARCWriter):
         result = self.fh_cache.get(dir_key)
 
         close_file = False
+
+        new_size = start = 0
 
         if result:
             out, filename = result

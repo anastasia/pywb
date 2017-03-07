@@ -1,5 +1,5 @@
-from pywb.warclib.recordloader import ArchiveLoadFailed
-from pywb.warclib.timeutils import iso_date_to_timestamp
+from warcio.recordloader import ArchiveLoadFailed
+from warcio.timeutils import iso_date_to_timestamp
 
 from pywb.warc.blockrecordloader import BlockArcWarcRecordLoader
 from pywb.utils.wbexception import NotFoundException
@@ -28,20 +28,20 @@ class ResolvingLoader(object):
         elif headers_record != payload_record:
             # close remainder of stream as this record only used for
             # (already parsed) headers
-            headers_record.stream.close()
+            headers_record.raw_stream.close()
 
             # special case: check if headers record is actually empty
             # (eg empty revisit), then use headers from revisit
-            if not headers_record.status_headers.headers:
+            if not headers_record.http_headers.headers:
                 headers_record = payload_record
 
         if not headers_record or not payload_record:
             raise ArchiveLoadFailed('Could not load ' + str(cdx))
 
         # ensure status line is valid from here
-        headers_record.status_headers.validate_statusline('204 No Content')
+        headers_record.http_headers.validate_statusline('204 No Content')
 
-        return (headers_record.status_headers, payload_record.stream)
+        return (headers_record.http_headers, payload_record.raw_stream)
 
     def load_headers_and_payload(self, cdx, failed_files, cdx_loader):
         """

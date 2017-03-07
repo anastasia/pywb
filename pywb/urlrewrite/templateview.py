@@ -1,5 +1,5 @@
-from pywb.warclib.timeutils import timestamp_to_datetime, timestamp_to_sec
-from pywb.warclib.timeutils import timestamp_now
+from warcio.timeutils import timestamp_to_datetime, timestamp_to_sec
+from warcio.timeutils import timestamp_now
 
 from pywb.utils.loaders import load
 

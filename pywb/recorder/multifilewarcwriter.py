@@ -7,8 +7,8 @@ import traceback
 
 import portalocker
 
-from pywb.warclib.timeutils import timestamp20_now
-from pywb.warclib.warcwriter import BaseWARCWriter
+from warcio.timeutils import timestamp20_now
+from warcio.warcwriter import BaseWARCWriter
 
 from pywb.webagg.utils import res_template
 
@@ -60,7 +60,7 @@ class MultiFileWARCWriter(BaseWARCWriter):
 
         if isinstance(result, tuple) and result[0] == 'revisit':
             record = self.create_revisit_record(url, digest, result[1], result[2],
-                                                status_headers=record.status_headers)
+                                                http_headers=record.http_headers)
 
         return record
 
@@ -68,8 +68,8 @@ class MultiFileWARCWriter(BaseWARCWriter):
         exclude_list = None
         if self.header_filter:
             exclude_list = self.header_filter(record)
-        buff = record.status_headers.to_bytes(exclude_list)
-        record.status_headers.headers_buff = buff
+        buff = record.http_headers.to_bytes(exclude_list)
+        record.http_headers.headers_buff = buff
 
     def get_new_filename(self, dir_, params):
         timestamp = timestamp20_now()

@@ -9,8 +9,8 @@ from pywb.framework.basehandlers import WbUrlHandler
 from six.moves.urllib.parse import parse_qs, urlsplit
 import six
 
-from pywb.warclib.statusandheaders import StatusAndHeaders
-from pywb.warclib.utils import to_native_str
+from warcio.statusandheaders import StatusAndHeaders
+from warcio.utils import to_native_str
 
 import base64
 import os

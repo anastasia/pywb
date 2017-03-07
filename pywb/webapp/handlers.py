@@ -5,8 +5,8 @@ import logging
 
 from datetime import datetime
 
-from pywb.warclib.statusandheaders import StatusAndHeaders
-from pywb.warclib.timeutils import datetime_to_timestamp
+from warcio.statusandheaders import StatusAndHeaders
+from warcio.timeutils import datetime_to_timestamp
 
 from pywb.utils.wbexception import NotFoundException
 from pywb.utils.loaders import LocalFileLoader

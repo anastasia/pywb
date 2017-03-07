@@ -1,10 +1,10 @@
 from pywb.utils.wbexception import WbException, NotFoundException
 from pywb.utils.loaders import load_yaml_config
 from pywb.utils.loaders import load_yaml_config
-from pywb.warclib.utils import to_native_str
+from warcio.utils import to_native_str
 
 from pywb.framework.wbrequestresponse import WbResponse
-from pywb.warclib.statusandheaders import StatusAndHeaders
+from warcio.statusandheaders import StatusAndHeaders
 
 
 import os

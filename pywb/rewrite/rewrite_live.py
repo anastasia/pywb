@@ -11,8 +11,8 @@ import os
 from six.moves.urllib.parse import urlsplit
 import six
 
-from pywb.warclib.timeutils import timestamp_now
-from pywb.warclib.statusandheaders import StatusAndHeaders
+from warcio.timeutils import timestamp_now
+from warcio.statusandheaders import StatusAndHeaders
 
 from pywb.utils.loaders import is_http, LimitReader, LocalFileLoader, to_file_url
 from pywb.utils.loaders import extract_client_cookie

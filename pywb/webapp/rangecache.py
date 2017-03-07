@@ -1,5 +1,5 @@
-from pywb.warclib.statusandheaders import StatusAndHeaders
-from pywb.warclib.limitreader import LimitReader
+from warcio.statusandheaders import StatusAndHeaders
+from warcio.limitreader import LimitReader
 
 from pywb.framework.cache import create_cache
 

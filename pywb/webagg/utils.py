@@ -7,8 +7,8 @@ import zlib
 
 from contextlib import closing
 
-from pywb.warclib.timeutils import timestamp_to_http_date
-from pywb.warclib.utils import BUFF_SIZE
+from warcio.timeutils import timestamp_to_http_date
+from warcio.utils import BUFF_SIZE
 
 from pywb.utils.wbexception import BadRequestException
 from pywb.utils.loaders import load_yaml_config

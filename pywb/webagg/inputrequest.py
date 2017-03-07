@@ -1,5 +1,5 @@
-from pywb.warclib.limitreader import LimitReader
-from pywb.warclib.statusandheaders import StatusAndHeadersParser
+from warcio.limitreader import LimitReader
+from warcio.statusandheaders import StatusAndHeadersParser
 
 from pywb.utils.loaders import extract_post_query, append_post_query
 

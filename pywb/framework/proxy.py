@@ -16,8 +16,8 @@ from pywb.rewrite.url_rewriter import SchemeOnlyUrlRewriter, UrlRewriter
 from pywb.rewrite.rewrite_content import RewriteContent
 from pywb.utils.wbexception import BadRequestException
 
-from pywb.warclib.bufferedreaders import BufferedReader
-from pywb.warclib.utils import to_native_str
+from warcio.bufferedreaders import BufferedReader
+from warcio.utils import to_native_str
 
 from pywb.framework.proxy_resolvers import ProxyAuthResolver, CookieResolver, IPCacheResolver
 
